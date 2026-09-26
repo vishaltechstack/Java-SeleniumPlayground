@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Member Directory</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --sidebar: #1e293b;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --warning-bg: #fef9c3;
+      --warning-text: #854d0e;
+      --danger-bg: #fee2e2;
+      --danger-text: #991b1b;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    aside.sidebar {
+      width: 240px;
+      background-color: var(--sidebar);
+      color: #f8fafc;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-item a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: block;
+      transition: background 0.2s;
+    }
+
+    .nav-item a:hover, .nav-item.active a {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    /* Main Area */
+    main.content-area {
+      flex: 1;
+      padding: 32px 40px;
+      overflow-x: auto;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 280px;
+      font-size: 0.9rem;
+    }
+
+    .filter-select {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: white;
+      font-size: 0.9rem;
+    }
+
+    /* Data Table */
+    .table-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: var(--muted);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .badge-active { background: var(--success-bg); color: var(--success-text); }
+    .badge-pending { background: var(--warning-bg); color: var(--warning-text); }
+    .badge-suspended { background: var(--danger-bg); color: var(--danger-text); }
+
+    /* Action buttons inside rows */
+    .action-btn {
+      background: none;
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .action-btn:hover {
+      border-color: var(--muted);
+    }
+
+    /* Pagination */
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: white;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .page-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .page-btn {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .page-btn.current {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Nav Target: links, IDs, and classes -->
+  <aside class="sidebar" id="app-sidebar">
+    <div class="brand-title">ControlPanel</div>
+    <ul class="nav-list">
+      <li class="nav-item"><a href="#overview">Overview</a></li>
+      <li class="nav-item active"><a href="#members">User Directory</a></li>
+      <li class="nav-item"><a href="#billing">Billing & Plans</a></li>
+      <li class="nav-item"><a href="#security">Audit Logs</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Work Area -->
+  <main class="content-area">
+    <div class="header-bar">
+      <h1 id="directory-title">Member Directory</h1>
+      <button type="button" id="export-btn" class="action-btn">Export CSV</button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="toolbar">
+      <input
+        type="search"
+        id="search-query"
+        name="filter_keyword"
+        class="search-input"
+        placeholder="Search by name or email..."
+      />
+      <select id="status-filter" name="filter_status" class="filter-select">
+        <option value="all">All Statuses</option>
+        <option value="active">Active Only</option>
+        <option value="pending">Pending</option>
+        <option value="suspended">Suspended</option>
+      </select>
+    </div>
+
+    <!-- Table Component -->
+    <div class="table-container">
+      <table id="members-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="select-all" name="bulk_select_all" /></th>
+            <th class="sortable" data-column="id">User ID</th>
+            <th class="sortable" data-column="name">Full Name</th>
+            <th class="sortable" data-column="email">Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="member-row" data-user-id="101">
+            <td><input type="checkbox" class="row-select" name="select_user_101" /></td>
+            <td class="col-id">USR-101</td>
+            <td class="col-name">Alex Johnson</td>
+            <td class="col-email">alex.j@example.com</td>
+            <td><span class="badge badge-active">Active</span></td>
+            <td><button type="button" class="action-btn edit-btn" data-action="edit">Edit</button></td>
+          </tr>
+          <tr class="member-row" data-user-id="102">
+            <td><input type="checkbox" class="row-select" name="select_user_102" /></td>
+            <td class="col-id">USR-102</td>
+            <td class="col-name">Beatriz Chen</td>
+            <td class="col-email">b.chen@example.com</td>
+            <td><span class="badge badge-pending">Pending</span></td>
+            <td><button type="button" class="action-btn edit-btn" data-action="edit">Edit</button></td>
+          </tr>
+          <tr class="member-row" data-user-id="103">
+            <td><input type="checkbox" class="row-select" name="select_user_103" /></td>
+            <td class="col-id">USR-103</td>
+            <td class="col-name">David Miller</td>
+            <td class="col-email">dmiller@example.com</td>
+            <td><span class="badge badge-suspended">Suspended</span></td>
+            <td><button type="button" class="action-btn edit-btn" data-action="edit">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination footer -->
+      <div class="pagination-bar">
+        <span id="page-summary">Showing 1 to 3 of 48 entries</span>
+        <div class="page-controls">
+          <button type="button" class="page-btn" id="prev-page-btn" disabled>Previous</button>
+          <button type="button" class="page-btn current" data-page="1">1</button>
+          <button type="button" class="page-btn" data-page="2">2</button>
+          <button type="button" class="page-btn" data-page="3">3</button>
+          <button type="button" class="page-btn" id="next-page-btn">Next</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

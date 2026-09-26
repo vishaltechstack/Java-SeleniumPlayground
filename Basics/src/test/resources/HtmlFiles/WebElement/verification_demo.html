@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebElement Verification Demo</title>
+    <style>
+        .hidden-box { display: none; }
+        .invisible-box { visibility: hidden; }
+        body { font-family: sans-serif; padding: 20px; }
+        .field { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h2>Verification Methods Practice</h2>
+
+    <!-- 1. isDisplayed() Targets -->
+    <div class="field">
+        <button id="btn-visible">I am Visible</button>
+        <button id="btn-hidden-display" class="hidden-box">Hidden via display:none</button>
+        <button id="btn-hidden-visibility" class="invisible-box">Hidden via visibility:hidden</button>
+    </div>
+
+    <!-- 2. isEnabled() Targets -->
+    <div class="field">
+        <input type="text" id="input-active" placeholder="Active Input">
+        <input type="text" id="input-disabled" placeholder="Disabled Input" disabled>
+        <button id="btn-disabled" disabled>Disabled Action</button>
+    </div>
+
+    <!-- 3. isSelected() Targets (Checkboxes, Radio Buttons, Dropdown options) -->
+    <div class="field">
+        <label>
+            <input type="checkbox" id="chk-checked" checked> Subscribed
+        </label>
+        <label>
+            <input type="checkbox" id="chk-unchecked"> Send Notifications
+        </label>
+        <br><br>
+        <label>
+            <input type="radio" name="gender" id="radio-selected" checked> Option A
+        </label>
+        <label>
+            <input type="radio" name="gender" id="radio-unselected"> Option B
+        </label>
+    </div>
+</body>
+</html>

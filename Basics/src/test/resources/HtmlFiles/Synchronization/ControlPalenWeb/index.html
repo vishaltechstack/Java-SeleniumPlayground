@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ControlPanel Admin Dashboard</title>
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===============================
+       SIDEBAR NAVIGATION
+       =============================== -->
+  <aside class="sidebar" id="app-sidebar">
+    <div class="brand-title">ControlPanel</div>
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="#overview" class="nav-link" data-view="overview">Overview</a>
+      </li>
+      <li class="nav-item active">
+        <a href="#members" class="nav-link" data-view="members">User Directory</a>
+      </li>
+      <li class="nav-item">
+        <a href="#billing" class="nav-link" data-view="billing">Billing & Plans</a>
+      </li>
+      <li class="nav-item">
+        <a href="#audit" class="nav-link" data-view="audit">Audit Logs</a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ===============================
+       MAIN DYNAMIC WORKSPACE
+       =============================== -->
+  <main class="content-area">
+
+    <!-- -----------------------------------------
+         VIEW 1: USER DIRECTORY (Active Default)
+         ----------------------------------------- -->
+    <section id="view-members" class="view-panel active">
+      <div class="header-bar">
+        <h1 class="page-title">Member Directory</h1>
+        <button type="button" id="export-btn" class="btn-outline">Export CSV</button>
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div class="toolbar">
+        <input
+          type="search"
+          id="search-query"
+          class="search-input"
+          placeholder="Search by name or email..."
+        />
+        <select id="status-filter" class="filter-select">
+          <option value="all">All Statuses</option>
+          <option value="Active">Active</option>
+          <option value="Pending">Pending</option>
+          <option value="Suspended">Suspended</option>
+        </select>
+      </div>
+
+      <!-- Member Table Container -->
+      <div class="table-container">
+        <table id="members-table">
+          <thead>
+            <tr>
+              <th style="width: 40px;">
+                <input type="checkbox" id="select-all" />
+              </th>
+              <th>User ID</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="members-tbody">
+            <!-- Dynamically populated via JavaScript -->
+          </tbody>
+        </table>
+
+        <!-- Table Footer / Pagination -->
+        <div class="pagination-bar">
+          <span id="page-summary">Showing 1 to 3 of 48 entries</span>
+          <div class="page-controls" id="pagination-controls">
+            <button type="button" class="page-btn" id="prev-page-btn" disabled>Previous</button>
+            <button type="button" class="page-btn current" data-page="1">1</button>
+            <button type="button" class="page-btn" data-page="2">2</button>
+            <button type="button" class="page-btn" data-page="3">3</button>
+            <button type="button" class="page-btn" id="next-page-btn">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------
+         VIEW 2: OVERVIEW
+         ----------------------------------------- -->
+    <section id="view-overview" class="view-panel">
+      <div class="header-bar">
+        <h1 class="page-title">Platform Overview</h1>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="metric-grid">
+        <div class="metric-card">
+          <span class="metric-label">Total Users</span>
+          <span class="metric-value">48</span>
+          <span class="metric-trend positive">↑ 12% this month</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Active Licenses</span>
+          <span class="metric-value">39</span>
+          <span class="metric-trend">81% seat usage</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Monthly Run Rate</span>
+          <span class="metric-value">$4,250</span>
+          <span class="metric-trend positive">↑ $320 vs last month</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Open Alerts</span>
+          <span class="metric-value">2</span>
+          <span class="metric-trend negative">Requires attention</span>
+        </div>
+      </div>
+
+      <!-- Recent System Health -->
+      <div class="content-card" style="margin-top: 24px;">
+        <h3>System Status</h3>
+        <p style="color: var(--muted); margin-top: 8px; font-size: 0.9rem;">
+          All regional microservices and API gateways are operating within normal latency parameters (&lt; 45ms).
+        </p>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------
+         VIEW 3: BILLING & PLANS
+         ----------------------------------------- -->
+    <section id="view-billing" class="view-panel">
+      <div class="header-bar">
+        <h1 class="page-title">Billing & Plans</h1>
+        <button type="button" class="btn-outline">Download Invoices</button>
+      </div>
+
+      <!-- Current Subscription Banner -->
+      <div class="content-card">
+        <h3>Current Subscription: <strong>Enterprise Pro</strong></h3>
+        <p style="color: var(--muted); font-size: 0.9rem; margin-top: 6px;">
+          Billed annually. Next renewal scheduled on <strong>November 1, 2026</strong>.
+        </p>
+      </div>
+
+      <!-- Plan Cards Comparison -->
+      <div class="plan-grid" style="margin-top: 24px;">
+        <div class="plan-card">
+          <h4>Starter</h4>
+          <div class="plan-price">$29<span>/mo</span></div>
+          <p class="plan-desc">For small teams up to 10 members.</p>
+          <button class="btn-outline" style="width: 100%;">Downgrade</button>
+        </div>
+        <div class="plan-card active-plan">
+          <span class="badge badge-active" style="align-self: flex-start; margin-bottom: 8px;">Active</span>
+          <h4>Enterprise Pro</h4>
+          <div class="plan-price">$199<span>/mo</span></div>
+          <p class="plan-desc">Unlimited members, audit trails, and priority SLA.</p>
+          <button class="btn-primary" style="width: 100%;" disabled>Current Tier</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------
+         VIEW 4: AUDIT LOGS
+         ----------------------------------------- -->
+    <section id="view-audit" class="view-panel">
+      <div class="header-bar">
+        <h1 class="page-title">Security & Audit Logs</h1>
+        <button type="button" class="btn-outline" id="clear-logs-btn">Refresh Logs</button>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Actor</th>
+              <th>Action Triggered</th>
+              <th>Severity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: var(--muted); font-size: 0.85rem;">2026-09-14 11:23:01</td>
+              <td>admin@controlpanel.io</td>
+              <td>Updated Member USR-103 status to Suspended</td>
+              <td><span class="badge badge-suspended">High</span></td>
+            </tr>
+            <tr>
+              <td style="color: var(--muted); font-size: 0.85rem;">2026-09-14 09:41:15</td>
+              <td>alex.j@example.com</td>
+              <td>Generated CSV Export of Member Directory</td>
+              <td><span class="badge badge-active">Low</span></td>
+            </tr>
+            <tr>
+              <td style="color: var(--muted); font-size: 0.85rem;">2026-09-13 18:02:44</td>
+              <td>system_worker</td>
+              <td>Automated security posture scan completed</td>
+              <td><span class="badge badge-pending">Info</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Link to external JS application script -->
+  <script src="script.js"></script>
+</body>
+</html>

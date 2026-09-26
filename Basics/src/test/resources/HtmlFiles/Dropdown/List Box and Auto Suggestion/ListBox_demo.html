@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Box Practice Ground</title>
+    <style>
+        * { box-sizing: border-box; font-family: sans-serif; }
+        body { padding: 30px; background-color: #f4f6f8; }
+        .container { display: flex; gap: 24px; flex-wrap: wrap; }
+        .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); width: 320px; }
+        h3 { margin-top: 0; margin-bottom: 12px; font-size: 16px; color: #333; }
+        label { display: block; font-size: 13px; margin-bottom: 8px; color: #555; }
+
+        /* 1. Native HTML List Box */
+        select.listbox {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+        select.listbox:focus {
+            border-color: #0066cc;
+        }
+        select.listbox option {
+            padding: 8px 10px;
+            border-radius: 2px;
+        }
+
+        /* 2. Custom Div / ARIA List Box */
+        .custom-listbox {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            max-height: 180px;
+            overflow-y: auto;
+            background: #fff;
+        }
+        .custom-listbox li {
+            padding: 10px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            user-select: none;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.15s ease;
+        }
+        .custom-listbox li:last-child {
+            border-bottom: none;
+        }
+        .custom-listbox li:hover {
+            background-color: #f0f4f8;
+        }
+        .custom-listbox li.selected {
+            background-color: #0066cc;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 1. Native Select List Box -->
+    <div class="card">
+        <h3>1. Native Multi-Select List Box</h3>
+        <label for="operating-systems">Hold Ctrl / Cmd to pick multiple:</label>
+        <select id="operating-systems" class="listbox" multiple size="5">
+            <option value="win">Windows 11</option>
+            <option value="mac">macOS Sonoma</option>
+            <option value="ubuntu">Ubuntu Linux</option>
+            <option value="fedora">Fedora</option>
+            <option value="debian">Debian</option>
+        </select>
+    </div>
+
+    <!-- 2. Custom Accessible List Box -->
+    <div class="card">
+        <h3>2. Custom ARIA List Box</h3>
+        <label id="priority-label">Select task priority:</label>
+        <ul id="priority-listbox" class="custom-listbox" role="listbox" aria-labelledby="priority-label">
+            <li role="option" aria-selected="false" data-value="low" onclick="selectItem(this)">Low Priority</li>
+            <li role="option" aria-selected="false" data-value="medium" onclick="selectItem(this)">Medium Priority</li>
+            <li role="option" aria-selected="false" data-value="high" onclick="selectItem(this)">High Priority</li>
+            <li role="option" aria-selected="false" data-value="critical" onclick="selectItem(this)">Critical Block</li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    function selectItem(element) {
+        // Clear previous selection
+        const items = document.querySelectorAll('#priority-listbox li');
+        items.forEach(el => {
+            el.classList.remove('selected');
+            el.setAttribute('aria-selected', 'false');
+        });
+
+        // Set active selection
+        element.classList.add('selected');
+        element.setAttribute('aria-selected', 'true');
+    }
+</script>
+</body>
+</html>

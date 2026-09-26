@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Synchronization Demo</title>
+</head>
+<body>
+    <h2>Wait Demonstration</h2>
+    <p>A hidden button will appear after 3 seconds...</p>
+
+    <button id="delayed-btn" style="display:none;">Click Me (Appeared!)</button>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById("delayed-btn").style.display = "block";
+        }, 3000);
+    </script>
+</body>
+</html>

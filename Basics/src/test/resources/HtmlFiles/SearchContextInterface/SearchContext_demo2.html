@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Settings & Preferences</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --danger: #ef4444;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .settings-wrapper {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+      color: #e2e8f0;
+    }
+
+    p.desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .control-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #cbd5e1;
+    }
+
+    .text-input, select {
+      width: 100%;
+      padding: 10px 12px;
+      background-color: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .text-input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+
+    /* Range slider */
+    .slider {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    /* File input custom styling */
+    .file-upload-box {
+      border: 2px dashed var(--border);
+      padding: 16px;
+      border-radius: 6px;
+      text-align: center;
+      background: #0f172a;
+      cursor: pointer;
+    }
+
+    /* Custom Toggle Switch */
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      display: inline-block;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider-round {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #334155;
+      border-radius: 24px;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .slider-round:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.2s ease;
+    }
+
+    input:checked + .slider-round {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider-round:before {
+      transform: translateX(20px);
+    }
+
+    .btn-save {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .btn-save:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-danger {
+      background-color: transparent;
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .btn-danger:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="settings-wrapper">
+    <!-- Profile & System IDs -->
+    <section class="section-card" id="profile-pane">
+      <h2 id="profile-heading">Profile Configuration</h2>
+      <p class="desc">Manage public details and account identifiers.</p>
+
+      <div class="control-group">
+        <label for="account-uid">Account UID (Read-only)</label>
+        <input
+          type="text"
+          id="account-uid"
+          name="user_system_id"
+          class="text-input"
+          value="USR-99281-X"
+          disabled
+        />
+      </div>
+
+      <div class="control-group">
+        <label for="display-name">Display Handle</label>
+        <input
+          type="text"
+          id="display-name"
+          name="profile_handle"
+          class="text-input"
+          placeholder="@yourhandle"
+        />
+      </div>
+
+      <div class="control-group">
+        <label for="avatar-file">Avatar Image Upload</label>
+        <input
+          type="file"
+          id="avatar-file"
+          name="avatar_attachment"
+          class="file-upload-box"
+          accept="image/png, image/jpeg"
+        />
+      </div>
+    </section>
+
+    <!-- Preferences & Sliders -->
+    <section class="section-card" id="preferences-pane">
+      <h2 id="pref-heading">System Preferences</h2>
+      <p class="desc">Customize notifications and limits.</p>
+
+      <div class="control-group">
+        <label for="session-timeout">Inactivity Timeout (Minutes)</label>
+        <input
+          type="range"
+          id="session-timeout"
+          name="timeout_slider"
+          class="slider"
+          min="5"
+          max="120"
+          value="30"
+        />
+      </div>
+
+      <div class="control-group">
+        <label for="timezone-select">Preferred Timezone</label>
+        <select id="timezone-select" name="user_tz" class="text-input">
+          <option value="UTC">UTC (Coordinated Universal Time)</option>
+          <option value="EST">EST (Eastern Standard Time)</option>
+          <option value="IST" selected>IST (Indian Standard Time)</option>
+        </select>
+      </div>
+
+      <!-- Toggle 1 -->
+      <div class="toggle-row">
+        <span>Enable Two-Factor Authentication</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="mfa-toggle" name="enable_mfa" checked />
+          <span class="slider-round"></span>
+        </label>
+      </div>
+
+      <!-- Toggle 2 -->
+      <div class="toggle-row">
+        <span>Email Digest Notifications</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="digest-toggle" name="enable_digest" />
+          <span class="slider-round"></span>
+        </label>
+      </div>
+
+      <button type="button" id="save-settings-btn" class="btn-save">
+        Save Preferences
+      </button>
+    </section>
+
+    <!-- Danger Zone -->
+    <section class="section-card" id="danger-zone">
+      <h2>Danger Zone</h2>
+      <p class="desc">Irreversible account actions.</p>
+      <button type="button" id="deactivate-btn" class="btn-danger">
+        Deactivate Account
+      </button>
+    </section>
+
+    <!-- Navigation / Help Links -->
+    <nav class="footer-links">
+      <a href="#audit-log">Security Audit Log</a>
+      <a href="#api-keys">Developer API Keys</a>
+      <a href="#support-portal">Contact IT Support</a>
+    </nav>
+  </main>
+
+</body>
+</html>

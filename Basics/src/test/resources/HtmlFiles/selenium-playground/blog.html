@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Selenium Playground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">&lt;/&gt;</span>
+      Selenium Playground
+    </a>
+    <nav class="links">
+      <a href="practice.html">Practice</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="nav-cta">Book training</a>
+    <button class="menu-btn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero" style="border-top:none;">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">home</a> / blog</div>
+      <span class="tag">blog</span>
+      <h1 style="font-size:clamp(1.9rem,4vw,2.6rem);">Notes from the field.</h1>
+      <p class="lead">Short write-ups on the things that actually break automated suites.</p>
+    </div>
+  </section>
+
+  <section style="border-top:none; padding-top:0;">
+    <div class="wrap">
+      <div class="blog-list">
+        <a class="blog-item" href="#">
+          <span class="date">Sep 02, 2026</span>
+          <h3>Why your explicit wait still times out</h3>
+          <span class="read">read →</span>
+        </a>
+        <a class="blog-item" href="#">
+          <span class="date">Aug 21, 2026</span>
+          <h3>Locator strategy for pages with regenerated IDs</h3>
+          <span class="read">read →</span>
+        </a>
+        <a class="blog-item" href="#">
+          <span class="date">Aug 06, 2026</span>
+          <h3>Piercing shadow DOM: getShadowRoot() in Selenium 4</h3>
+          <span class="read">read →</span>
+        </a>
+        <a class="blog-item" href="#">
+          <span class="date">Jul 19, 2026</span>
+          <h3>Cutting a 40-minute regression suite down with sharding</h3>
+          <span class="read">read →</span>
+        </a>
+        <a class="blog-item" href="#">
+          <span class="date">Jul 03, 2026</span>
+          <h3>Relative locators: when above() beats a brittle XPath</h3>
+          <span class="read">read →</span>
+        </a>
+        <a class="blog-item" href="#">
+          <span class="date">Jun 22, 2026</span>
+          <h3>Switching windows without losing your main handle</h3>
+          <span class="read">read →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>© 2026 Selenium Playground. Practice environment only.</span>
+    <span class="mono">built for testers, by testers</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>

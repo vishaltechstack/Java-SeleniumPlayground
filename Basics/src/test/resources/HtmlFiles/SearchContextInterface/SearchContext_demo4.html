@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workspace Chat & Support Console</title>
+  <style>
+    :root {
+      --bg: #e2e8f0;
+      --panel-bg: #ffffff;
+      --sidebar-bg: #f8fafc;
+      --border: #cbd5e1;
+      --text: #0f172a;
+      --muted: #64748b;
+      --msg-incoming: #f1f5f9;
+      --msg-outgoing: #2563eb;
+      --status-online: #22c55e;
+      --status-away: #eab308;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 16px;
+    }
+
+    /* Chat App Wrapper */
+    .chat-app {
+      display: flex;
+      width: 100%;
+      max-width: 960px;
+      height: 640px;
+      background: var(--panel-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    /* Channels / Direct Messages List */
+    .threads-sidebar {
+      width: 300px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .thread-list {
+      list-style: none;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .thread-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .thread-item:hover, .thread-item.active {
+      background: #e2e8f0;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .status-dot {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    .status-online { background-color: var(--status-online); }
+    .status-away { background-color: var(--status-away); }
+
+    .thread-details {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .thread-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .thread-preview {
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Main Conversation Area */
+    .chat-window {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--panel-bg);
+    }
+
+    .chat-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header-actions a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-left: 12px;
+    }
+
+    .chat-header-actions a:hover {
+      text-decoration: underline;
+    }
+
+    /* Messages History */
+    .message-stream {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .bubble {
+      max-width: 65%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      position: relative;
+    }
+
+    .bubble-incoming {
+      align-self: flex-start;
+      background-color: var(--msg-incoming);
+      color: var(--text);
+      border-bottom-left-radius: 2px;
+    }
+
+    .bubble-outgoing {
+      align-self: flex-end;
+      background-color: var(--msg-outgoing);
+      color: white;
+      border-bottom-right-radius: 2px;
+    }
+
+    .bubble-time {
+      display: block;
+      font-size: 0.7rem;
+      margin-top: 4px;
+      opacity: 0.75;
+      text-align: right;
+    }
+
+    /* Quick Reply Chips */
+    .quick-chips {
+      padding: 8px 20px;
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid var(--border);
+      background: #fafafa;
+    }
+
+    .chip-btn {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .chip-btn:hover {
+      background: #f1f5f9;
+    }
+
+    /* Composer */
+    .chat-composer {
+      padding: 14px 20px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: var(--panel-bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .composer-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .composer-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 4px;
+    }
+
+    .send-btn {
+      background: var(--msg-outgoing);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-app" id="chat-app-root">
+
+    <!-- Sidebar: Conversation Threads -->
+    <aside class="threads-sidebar" id="threads-container">
+      <header class="sidebar-header">Direct Messages</header>
+      <ul class="thread-list">
+        <li class="thread-item active" data-channel-id="ch-901">
+          <div class="avatar-wrapper">
+            SC
+            <span class="status-dot status-online" title="Online"></span>
+          </div>
+          <div class="thread-details">
+            <div class="thread-name">Sarah Connor</div>
+            <div class="thread-preview">The server migration is scheduled...</div>
+          </div>
+        </li>
+        <li class="thread-item" data-channel-id="ch-902">
+          <div class="avatar-wrapper">
+            MR
+            <span class="status-dot status-away" title="Away"></span>
+          </div>
+          <div class="thread-details">
+            <div class="thread-name">Mark Robinson</div>
+            <div class="thread-preview">Can you review the PR?</div>
+          </div>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Message View -->
+    <main class="chat-window">
+      <!-- Conversation Header -->
+      <header class="chat-header">
+        <div>
+          <h2 id="active-chat-user" style="font-size: 1rem;">Sarah Connor</h2>
+          <small style="color: var(--status-online);">● Active now</small>
+        </div>
+        <div class="chat-header-actions">
+          <a href="#thread-info" class="meta-link">View Details</a>
+          <a href="#search-messages" class="meta-link">Search History</a>
+        </div>
+      </header>
+
+      <!-- Message History -->
+      <section class="message-stream" id="message-container">
+        <div class="bubble bubble-incoming" data-msg-id="m-1001">
+          <p class="msg-text">Hey team, are we ready for the 3 PM release?</p>
+          <span class="bubble-time">14:52</span>
+        </div>
+
+        <div class="bubble bubble-outgoing" data-msg-id="m-1002">
+          <p class="msg-text">Yes, all unit tests and regression checks passed clean!</p>
+          <span class="bubble-time">14:55</span>
+        </div>
+
+        <div class="bubble bubble-incoming" data-msg-id="m-1003">
+          <p class="msg-text">Great, deploying the artifact to staging now.</p>
+          <span class="bubble-time">14:56</span>
+        </div>
+      </section>
+
+      <!-- Fast-Reply Action Chips -->
+      <div class="quick-chips">
+        <button type="button" class="chip-btn" name="quick_ack">Sounds good!</button>
+        <button type="button" class="chip-btn" name="quick_wait">Checking now...</button>
+        <button type="button" class="chip-btn" name="quick_call">Let's hop on a call</button>
+      </div>
+
+      <!-- Footer Message Input -->
+      <form class="chat-composer" id="message-form" action="#">
+        <button type="button" class="composer-btn" id="attach-btn" title="Add file">+</button>
+        <input
+          type="text"
+          id="chat-input"
+          name="message_body"
+          class="composer-input"
+          placeholder="Type a message..."
+          autocomplete="off"
+        />
+        <button type="submit" id="send-btn" class="send-btn">Send</button>
+      </form>
+    </main>
+
+  </div>
+
+</body>
+</html>

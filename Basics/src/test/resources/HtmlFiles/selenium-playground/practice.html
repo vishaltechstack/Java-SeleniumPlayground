@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice — Selenium Playground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">&lt;/&gt;</span>
+      Selenium Playground
+    </a>
+    <nav class="links">
+      <a href="practice.html" class="active">Practice</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="nav-cta">Book training</a>
+    <button class="menu-btn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero" style="border-top:none;">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">home</a> / practice</div>
+      <span class="tag">practice</span>
+      <h1 style="font-size:clamp(1.9rem,4vw,2.6rem);">Thirteen labs. One Selenium concept each.</h1>
+      <p class="lead">Every widget below runs live in this page. Right-click and inspect any of them, or open devtools, to find the locator you'd write in a real test.</p>
+    </div>
+  </section>
+
+  <!-- 01 SearchContext -->
+  <div class="wrap">
+  <section class="topic" id="searchcontext">
+    <div class="topic-head">
+      <div class="topic-num">01</div>
+      <div>
+        <h3>SearchContext interface</h3>
+        <p>Both <code>WebDriver</code> and <code>WebElement</code> implement <code>SearchContext</code>, which is why you can call <code>findElement</code> on either one. Search from the driver to get the outer card, then search again from that element to reach the nested one — a different context each time.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <div class="nest-outer" id="scOuter">
+          <div class="mono" style="font-size:12px;color:var(--text-dim);margin-bottom:6px;">#scOuter (search from driver)</div>
+          <div class="nest-inner" id="scInner">
+            <div class="mono" style="font-size:12px;color:var(--text-dim);margin-bottom:6px;">.scInner (search from #scOuter)</div>
+            <div class="nest-leaf" id="scLeaf">.scLeaf — only reachable by searching inside #scInner</div>
+          </div>
+        </div>
+      </div>
+      <div class="topic-notes">
+        <b>why it matters</b>
+        driver.findElement() and element.findElement() share the same interface, but the second call only searches within that element's subtree — not the whole page.
+        <div class="locator-line">outer: <b>#scOuter</b></div>
+        <div class="locator-line">inner: <b>.scInner</b> (found via #scOuter)</div>
+        <div class="locator-line">leaf: <b>.scLeaf</b> (found via .scInner)</div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 02 Locators & XPath -->
+  <div class="wrap">
+  <section class="topic" id="locators">
+    <div class="topic-head">
+      <div class="topic-num">02</div>
+      <div>
+        <h3>Locators &amp; XPath</h3>
+        <p>Five elements, five different attribute shapes — practice writing id, class, name, and both absolute and relative XPath against each one.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <button class="btn btn-ghost" id="locBtnId" style="margin:0 8px 10px 0;">By id</button>
+        <button class="btn btn-ghost" name="locBtnName" style="margin:0 8px 10px 0;">By name</button>
+        <button class="btn btn-ghost" class="locBtnClass" data-testid="loc-testid" style="margin:0 8px 10px 0;">By data-testid</button>
+        <input class="pg-input" placeholder="input[type=text][placeholder]" style="margin-top:6px;">
+        <p style="font-size:12px;margin-top:14px;">Tip: an XPath like <code>//button[text()='By name']</code> matches on visible text instead of an attribute.</p>
+      </div>
+      <div class="topic-notes">
+        <b>locators on this widget</b>
+        <div class="locator-line">id: <b>#locBtnId</b></div>
+        <div class="locator-line">name: <b>[name='locBtnName']</b></div>
+        <div class="locator-line">attr: <b>[data-testid='loc-testid']</b></div>
+        <div class="locator-line">xpath: <b>//button[text()='By name']</b></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 03 Relative locators -->
+  <div class="wrap">
+  <section class="topic" id="relative">
+    <div class="topic-head">
+      <div class="topic-num">03</div>
+      <div>
+        <h3>Relative locators</h3>
+        <p>Selenium 4's <code>above()</code>, <code>below()</code>, <code>toLeftOf()</code>, <code>toRightOf()</code>, and <code>near()</code> find elements by position instead of attributes. Use the grid to reason about which cell sits where relative to the center.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <div class="rel-grid">
+          <div class="rel-cell" id="relTL">top-left</div>
+          <div class="rel-cell" id="relTM">above()</div>
+          <div class="rel-cell" id="relTR">top-right</div>
+          <div class="rel-cell" id="relML">toLeftOf()</div>
+          <div class="rel-cell center" id="relCenter">#relCenter</div>
+          <div class="rel-cell" id="relMR">toRightOf()</div>
+          <div class="rel-cell" id="relBL">bottom-left</div>
+          <div class="rel-cell" id="relBM">below()</div>
+          <div class="rel-cell" id="relBR">bottom-right</div>
+        </div>
+      </div>
+      <div class="topic-notes">
+        <b>example</b>
+        driver.findElement(<br>&nbsp;&nbsp;RelativeLocator.with(By.id("relTM"))<br>&nbsp;&nbsp;&nbsp;&nbsp;.above(By.id("relCenter"))<br>);
+        <div class="locator-line">anchor: <b>#relCenter</b></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 04 WebElement interface -->
+  <div class="wrap">
+  <section class="topic" id="webelement">
+    <div class="topic-head">
+      <div class="topic-num">04</div>
+      <div>
+        <h3>WebElement interface</h3>
+        <p>Practice the methods you'd call on a found element: <code>getText()</code>, <code>getAttribute()</code>, <code>isDisplayed()</code>, <code>isEnabled()</code>, and <code>getSize()</code>.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <button class="btn btn-ghost" id="weBtn" data-state="ready" disabled style="margin-bottom:10px;">Processing order #4471</button>
+        <button class="btn btn-primary btn-small" onclick="toggleWe()">Toggle enabled / disabled</button>
+        <div class="dynamic-id-box" id="weOut" style="margin-top:12px;">isEnabled(): false</div>
+      </div>
+      <div class="topic-notes">
+        <b>attributes to inspect</b>
+        <div class="locator-line">target: <b>#weBtn</b></div>
+        text via getText(), disabled via getAttribute('disabled')
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 05 Synchronization -->
+  <div class="wrap">
+  <section class="topic" id="sync">
+    <div class="topic-head">
+      <div class="topic-num">05</div>
+      <div>
+        <h3>Synchronization</h3>
+        <p>Click to load data with an artificial delay. A hard-coded <code>Thread.sleep</code> will either wait too long or not long enough — this is what explicit and fluent waits are for.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <button class="btn btn-ghost" onclick="runSync()">Load report</button>
+        <div class="dynamic-id-box" id="syncOut" style="margin-top:12px;">idle</div>
+      </div>
+      <div class="topic-notes">
+        <b>wait for</b>
+        <div class="locator-line">target: <b>#syncResult</b></div>
+        appears 1.4–2.6s after click (randomized) — a fixed sleep will sometimes fail
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 06 Dropdown / Autosuggest -->
+  <div class="wrap">
+  <section class="topic" id="dropdown">
+    <div class="topic-head">
+      <div class="topic-num">06</div>
+      <div>
+        <h3>Dropdown / list box &amp; auto-suggestion</h3>
+        <p>A native <code>&lt;select&gt;</code> for the Select class, plus a type-ahead box that filters a list as you type — the two most common "dropdown" shapes testers run into.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <label class="mono" style="font-size:11.5px;color:var(--text-dim);">native select</label>
+        <select class="pg-select" id="ddSelect" style="margin:6px 0 16px;">
+          <option value="">Choose a framework</option>
+          <option value="testng">TestNG</option>
+          <option value="junit">JUnit 5</option>
+          <option value="cucumber">Cucumber</option>
+        </select>
+        <label class="mono" style="font-size:11.5px;color:var(--text-dim);">auto-suggest</label>
+        <div class="suggest-wrap" style="margin-top:6px;">
+          <input class="pg-input" id="suggestInput" placeholder="Search a browser…" autocomplete="off">
+          <div class="suggest-list" id="suggestList"></div>
+        </div>
+      </div>
+      <div class="topic-notes">
+        <b>locators</b>
+        <div class="locator-line">select: <b>#ddSelect</b></div>
+        <div class="locator-line">input: <b>#suggestInput</b></div>
+        <div class="locator-line">options: <b>.suggest-list div</b></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 07 Actions class -->
+  <div class="wrap">
+  <section class="topic" id="actions">
+    <div class="topic-head">
+      <div class="topic-num">07</div>
+      <div>
+        <h3>Actions class</h3>
+        <p>Drag-and-drop, hover, double-click, and right-click all need the <code>Actions</code> builder instead of a plain <code>click()</code>.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <div class="drag-zone" style="margin-bottom:18px;">
+          <div class="drag-item" id="dragTile" draggable="true">TILE</div>
+          <div class="drop-target" id="dropZone">drop here</div>
+        </div>
+        <span class="tooltip-wrap" style="margin-right:10px;">
+          <button class="btn btn-ghost btn-small">Hover</button>
+          <span class="tooltip-box">Actions.moveToElement()</span>
+        </span>
+        <button class="btn btn-ghost btn-small" ondblclick="dblOut()" style="margin-right:10px;">Double-click</button>
+        <button class="btn btn-ghost btn-small" oncontextmenu="return rightOut(event)">Right-click</button>
+        <div class="dynamic-id-box" id="actOut" style="margin-top:14px;">no action yet</div>
+      </div>
+      <div class="topic-notes">
+        <b>build chain</b>
+        new Actions(driver)<br>&nbsp;&nbsp;.moveToElement(el)<br>&nbsp;&nbsp;.doubleClick()<br>&nbsp;&nbsp;.build().perform();
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 08 TakesScreenshot -->
+  <div class="wrap">
+  <section class="topic" id="screenshot">
+    <div class="topic-head">
+      <div class="topic-num">08</div>
+      <div>
+        <h3>TakesScreenshot interface</h3>
+        <p><code>((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE)</code> captures the full page; <code>element.getScreenshotAs(...)</code> captures just one node. Click to simulate marking the capture region.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <div class="shot-target" id="shotTarget">#shotTarget — this element would be captured</div>
+        <button class="btn btn-ghost btn-small" onclick="toggleShot()" style="margin-top:14px;">Simulate element screenshot</button>
+      </div>
+      <div class="topic-notes">
+        <b>note</b>
+        This page can't write files to disk from the browser — in a real test, getScreenshotAs() returns bytes or a File you save yourself.
+        <div class="locator-line">target: <b>#shotTarget</b></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 09 JavascriptExecutor -->
+  <div class="wrap">
+  <section class="topic" id="jsexecutor">
+    <div class="topic-head">
+      <div class="topic-num">09</div>
+      <div>
+        <h3>JavascriptExecutor interface</h3>
+        <p>Scroll the box below with <code>((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", el)</code> instead of dragging a real scrollbar.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <div class="scroll-box" id="jsScrollBox">
+          <div class="filler"></div>
+          <div class="scroll-target" id="jsTarget">#jsTarget — off-screen until scrolled into view</div>
+          <div class="filler"></div>
+        </div>
+        <button class="btn btn-ghost btn-small" onclick="scrollToTarget()" style="margin-top:12px;">executeScript: scrollIntoView</button>
+      </div>
+      <div class="topic-notes">
+        <b>other common calls</b>
+        executeScript("arguments[0].click();", el)<br>
+        executeScript("return document.title;")
+        <div class="locator-line">target: <b>#jsTarget</b></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 10 Shadow DOM -->
+  <div class="wrap">
+  <section class="topic" id="shadowdom">
+    <div class="topic-head">
+      <div class="topic-num">10</div>
+      <div>
+        <h3>Shadow DOM</h3>
+        <p>The box below is a real open shadow root, attached with <code>attachShadow()</code>. A plain <code>findElement</code> can't see inside it — you need <code>element.getShadowRoot()</code> (Selenium 4) first.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <div class="shadow-host-visual">
+          <div class="mono" style="font-size:12px;color:var(--text-dim);margin-bottom:10px;">#shadowHost (light DOM)</div>
+          <div id="shadowHost"></div>
+        </div>
+      </div>
+      <div class="topic-notes">
+        <b>java</b>
+        SearchContext shadow =<br>&nbsp;&nbsp;driver.findElement(By.id("shadowHost"))<br>&nbsp;&nbsp;&nbsp;&nbsp;.getShadowRoot();<br>
+        shadow.findElement(By.css("button"));
+        <div class="locator-line">host: <b>#shadowHost</b></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 11 Frames -->
+  <div class="wrap">
+  <section class="topic" id="frames">
+    <div class="topic-head">
+      <div class="topic-num">11</div>
+      <div>
+        <h3>Handling frames</h3>
+        <p>The box below is a real <code>&lt;iframe&gt;</code>. Selenium can't see its contents until you call <code>driver.switchTo().frame(...)</code>, and you need <code>switchTo().defaultContent()</code> to get back out.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <iframe class="lab-frame" id="loginFrame" title="frame lab" srcdoc="
+          <body style='font-family:sans-serif;padding:14px;margin:0;background:#fff;'>
+            <p style='margin:0 0 8px;font-size:13px;'>Inside the iframe</p>
+            <input id='frameInput' placeholder='username' style='padding:6px;width:90%;font-size:13px;'>
+            <button id='frameBtn' style='margin-top:8px;padding:6px 12px;font-size:13px;'>Submit</button>
+          </body>
+        "></iframe>
+      </div>
+      <div class="topic-notes">
+        <b>switch pattern</b>
+        driver.switchTo().frame("loginFrame");<br>
+        driver.findElement(By.id("frameInput"));<br>
+        driver.switchTo().defaultContent();
+        <div class="locator-line">frame: <b>#loginFrame</b></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 12 Pop-ups -->
+  <div class="wrap">
+  <section class="topic" id="popups">
+    <div class="topic-head">
+      <div class="topic-num">12</div>
+      <div>
+        <h3>Handling pop-ups</h3>
+        <p>These buttons fire real native browser dialogs. Selenium reaches them with <code>driver.switchTo().alert()</code>, then <code>.accept()</code>, <code>.dismiss()</code>, or <code>.sendKeys()</code> for a prompt.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <button class="btn btn-ghost btn-small" style="margin-right:10px;" onclick="alert('Regression suite queued.')">Trigger alert()</button>
+        <button class="btn btn-ghost btn-small" style="margin-right:10px;" onclick="popupOut(confirm('Cancel the running job?'))">Trigger confirm()</button>
+        <button class="btn btn-ghost btn-small" onclick="popupOut(prompt('Enter build tag:'))">Trigger prompt()</button>
+        <div class="dynamic-id-box" id="popupResult" style="margin-top:14px;">no dialog result yet</div>
+      </div>
+      <div class="topic-notes">
+        <b>java</b>
+        Alert alert = driver.switchTo().alert();<br>
+        alert.accept();
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- 13 Windows -->
+  <div class="wrap">
+  <section class="topic" id="windows">
+    <div class="topic-head">
+      <div class="topic-num">13</div>
+      <div>
+        <h3>Handling windows</h3>
+        <p>Opens a genuine new browser tab. In Selenium you'd capture <code>driver.getWindowHandles()</code> before and after, then <code>switchTo().window(newHandle)</code>.</p>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-widget">
+        <button class="btn btn-ghost btn-small" onclick="window.open('practice.html#windows','_blank')">Open new tab</button>
+        <p class="window-note" style="margin-top:12px;">This opens this same page in a second tab so you can practice reading <code>getWindowHandles()</code> and switching back.</p>
+      </div>
+      <div class="topic-notes">
+        <b>java</b>
+        String main = driver.getWindowHandle();<br>
+        for (String h : driver.getWindowHandles())<br>
+        &nbsp;&nbsp;if (!h.equals(main)) driver.switchTo().window(h);
+      </div>
+    </div>
+  </section>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>© 2026 Selenium Playground. Practice environment only.</span>
+    <span class="mono">built for testers, by testers</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/practice.js"></script>
+
+</body>
+</html>

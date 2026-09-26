@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>7. Parent Window</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; background: #e2e8f0; }
+    .card { background: white; padding: 24px; border-radius: 8px; max-width: 450px; }
+    button { padding: 10px 16px; background: #7c3aed; color: white; border: none; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Parent Window</h2>
+  <p>Click below to launch an independent child browser popup window.</p>
+  <button id="open-child-window-btn" onclick="openChildWindow()">Open Child Window</button>
+</div>
+
+<script>
+  function openChildWindow() {
+    // Creates an independent new window
+    const child = window.open("", "ChildWindow", "width=500,height=400,resizable=yes");
+    child.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Child Window Title</title>
+          <style>body { font-family: Arial; padding: 20px; background: #fffbeb; }</style>
+        </head>
+        <body>
+          <h2 id="child-heading">Inside Child Pop-up Window</h2>
+          <p id="child-msg">This is target text inside the child tab/window.</p>
+          <button id="child-close-btn" onclick="window.close()">Close This Child Window</button>
+        </body>
+        </html>
+      `);
+    child.document.close();
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EduTech Automation Portal | Services & Courses</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Context Menu / Dropdown Hover Styles */
+    .menu-container {
+      position: relative;
+      display: inline-block;
+    }
+    .hover-dropdown-btn {
+      background-color: var(--secondary);
+      color: white;
+    }
+    .hover-dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      min-width: 180px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      z-index: 10;
+    }
+    .hover-dropdown-content a {
+      color: var(--text);
+      padding: 10px 14px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.85rem;
+    }
+    .hover-dropdown-content a:hover {
+      background-color: #f1f5f9;
+    }
+    .menu-container:hover .hover-dropdown-content {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="brand-logo">EduTech Portal</a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Basic Locators</a></li>
+        <li><a href="services.html" class="active">Dropdown & Actions</a></li>
+        <li><a href="about.html">Frames & Shadow</a></li>
+        <li><a href="contact.html">Alert & Multi-Window</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Course Catalog & Interactive Operations</h1>
+    <p class="subtitle">Practice Dropdowns, Multi-Selects, Auto-Suggestions, and Actions Class interactions.</p>
+
+    <div class="grid-layout">
+      <!-- Standard and Multi-Select Dropdowns -->
+      <section class="card" id="dropdown-testing-section">
+        <h2>Dropdown & Select Lists</h2>
+
+        <!-- Standard Select -->
+        <div class="form-group">
+          <label for="select-track">Choose Certification Track</label>
+          <select id="select-track" name="learning_track">
+            <option value="">-- Please select an option --</option>
+            <option value="qa_auto">QA Automation Engineer</option>
+            <option value="sdet">SDET Lead Architect</option>
+            <option value="devops">DevOps Test Infrastructure</option>
+            <option value="perf">Performance Specialist</option>
+          </select>
+        </div>
+
+        <!-- Multi-Select List Box -->
+        <div class="form-group">
+          <label for="select-tools">Select Languages (Multi-Select)</label>
+          <select id="select-tools" name="selected_languages" multiple size="4">
+            <option value="java">Java 21</option>
+            <option value="python">Python 3.12</option>
+            <option value="csharp">C# .NET</option>
+            <option value="js">JavaScript / TypeScript</option>
+          </select>
+        </div>
+
+        <!-- Auto Suggestion Input -->
+        <div class="form-group">
+          <label for="course-search-suggest">Search Courses (Auto-Suggest)</label>
+          <input type="text" id="course-search-suggest" placeholder="Type 'Selenium' or 'Playwright'..." autocomplete="off" />
+          <ul id="suggestions-box" class="suggestion-list" style="display: none;"></ul>
+        </div>
+      </section>
+
+      <!-- Actions Class (Hover, Double-Click, Drag & Drop) -->
+      <section class="card" id="actions-testing-section">
+        <h2>Actions Class Sandbox</h2>
+
+        <!-- Mouse Hover -->
+        <div class="form-group">
+          <label>1. Mouse Hover (moveToElement)</label>
+          <div class="menu-container">
+            <button class="btn hover-dropdown-btn" id="menu-hover-trigger">Hover Over Me</button>
+            <div class="hover-dropdown-content" id="hover-menu">
+              <a href="#selenium" id="link-selenium-class">Selenium Training</a>
+              <a href="#cypress" id="link-cypress-class">Cypress Bootcamp</a>
+              <a href="#docker" id="link-docker-class">Grid & Docker</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Double Click -->
+        <div class="form-group">
+          <label>2. Double Click (doubleClick)</label>
+          <button type="button" id="btn-double-click" class="btn btn-secondary">Double Click to Redeem</button>
+          <p id="double-click-msg" style="display: none; font-size: 0.85rem; color: var(--success); font-weight: 600;"></p>
+        </div>
+
+        <!-- Drag and Drop -->
+        <div class="form-group">
+          <label>3. Drag and Drop</label>
+          <div style="display: flex; gap: 20px; align-items: center;">
+            <div id="drag-certificate" class="drag-box" draggable="true">
+              Course Token
+            </div>
+            <div id="drop-target" class="drop-zone" style="flex: 1;">
+              Drag Token Here to Redeem
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Selenium Automation Practice Sandbox © 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

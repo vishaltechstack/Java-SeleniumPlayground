@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1. JavaScript Native Pop-ups</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 30px; background: #f0f2f5; }
+        .card { background: white; padding: 24px; border-radius: 8px; max-width: 450px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        button { display: block; width: 100%; padding: 12px; margin-bottom: 12px; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; color: white; }
+        .btn-alert { background: #e74c3c; }
+        .btn-confirm { background: #3498db; }
+        .btn-prompt { background: #2ecc71; }
+        #output { margin-top: 16px; padding: 10px; background: #e8ecef; border-radius: 4px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Native JavaScript Pop-ups</h2>
+    <button id="alert-btn" class="btn-alert" onclick="showAlert()">Trigger Alert</button>
+    <button id="confirm-btn" class="btn-confirm" onclick="showConfirm()">Trigger Confirm</button>
+    <button id="prompt-btn" class="btn-prompt" onclick="showPrompt()">Trigger Prompt</button>
+    <div id="output">Result will show here...</div>
+</div>
+
+<script>
+    function showAlert() {
+        alert("This is a native JS alert box!");
+        document.getElementById('output').textContent = "Alert acknowledged.";
+    }
+    function showConfirm() {
+        const choice = confirm("Do you want to proceed?");
+        document.getElementById('output').textContent = choice ? "Accepted (OK clicked)" : "Dismissed (Cancel clicked)";
+    }
+    function showPrompt() {
+        const name = prompt("Please enter your name:", "John Doe");
+        document.getElementById('output').textContent = name !== null ? "Entered: " + name : "Prompt cancelled.";
+    }
+</script>
+
+</body>
+</html>

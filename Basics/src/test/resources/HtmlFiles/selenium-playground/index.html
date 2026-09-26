@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selenium Playground — Practice labs for automation testers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">&lt;/&gt;</span>
+      Selenium Playground
+    </a>
+    <nav class="links">
+      <a href="practice.html">Practice</a>
+      <a href="services.html">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="practice.html" class="nav-cta">Start practicing</a>
+    <button class="menu-btn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" style="border-top:none;">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="tag">selenium-playground / home</span>
+        <h1>A DOM built to get<br>your locators wrong.</h1>
+        <p class="lead">Thirteen labs, each isolating one Selenium interface or concept — from <code>SearchContext</code> to Shadow DOM — so you can practice the exact thing that breaks in your real suite.</p>
+        <div class="hero-actions">
+          <a href="practice.html" class="btn btn-primary">Open the practice labs</a>
+          <a href="services.html" class="btn btn-ghost">See training options</a>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><b>13</b><span>concept-mapped labs</span></div>
+          <div class="stat"><b>1,300+</b><span>testers trained</span></div>
+          <div class="stat"><b>0</b><span>flaky excuses left</span></div>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-topbar">
+          <span class="dot" style="background:#E8666B;"></span>
+          <span class="dot" style="background:var(--amber);"></span>
+          <span class="dot" style="background:var(--green);"></span>
+          <span class="file">lab-00-warmup.html</span>
+        </div>
+        <div class="demo-body">
+          <p class="hint mono">Click the button. Then inspect it.</p>
+          <button id="demoTargetBtn" onclick="runDemo()">Click me first</button>
+          <div class="demo-out" id="demoOut">&nbsp;</div>
+          <div class="locator-chip">
+            css: <b>#demoTargetBtn</b><br>
+            xpath: <b>//button[@id='demoTargetBtn']</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">what's inside</span>
+        <h2>Thirteen labs, one topic each.</h2>
+        <p>Every lab lives on its own section of the practice page with a working widget and the locator you'd use to hit it.</p>
+      </div>
+      <div class="topic-grid-preview">
+        <a href="practice.html#searchcontext"><span>01</span>SearchContext interface</a>
+        <a href="practice.html#locators"><span>02</span>Locators &amp; XPath</a>
+        <a href="practice.html#relative"><span>03</span>Relative locators</a>
+        <a href="practice.html#webelement"><span>04</span>WebElement interface</a>
+        <a href="practice.html#sync"><span>05</span>Synchronization</a>
+        <a href="practice.html#dropdown"><span>06</span>Dropdown &amp; auto-suggest</a>
+        <a href="practice.html#actions"><span>07</span>Actions class</a>
+        <a href="practice.html#screenshot"><span>08</span>TakesScreenshot</a>
+        <a href="practice.html#jsexecutor"><span>09</span>JavascriptExecutor</a>
+        <a href="practice.html#shadowdom"><span>10</span>Shadow DOM</a>
+        <a href="practice.html#frames"><span>11</span>Handling frames</a>
+        <a href="practice.html#popups"><span>12</span>Handling pop-ups</a>
+        <a href="practice.html#windows"><span>13</span>Handling windows</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>© 2026 Selenium Playground. Practice environment only.</span>
+    <span class="mono">built for testers, by testers</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
+
+</body>
+</html>

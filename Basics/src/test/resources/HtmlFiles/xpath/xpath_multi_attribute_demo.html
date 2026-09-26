@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>XPath Multiple Attributes Demo</title>
+</head>
+<body>
+    <form id="checkout-form">
+        <!-- Multiple standard attributes -->
+        <input type="text" name="first_name" id="fname" class="form-control" placeholder="First Name">
+
+        <!-- Custom data attributes combined with standard attributes -->
+        <input type="email" name="user_email" data-section="billing" class="input-field" placeholder="Billing Email">
+
+        <!-- Button with multiple distinct identifiers -->
+        <button type="submit" name="submit_order" data-action="place-order" class="btn btn-primary">
+            Place Order
+        </button>
+    </form>
+</body>
+</html>

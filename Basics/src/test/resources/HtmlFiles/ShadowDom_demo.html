@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shadow DOM Practice for Selenium</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f1f5f9;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            max-width: 520px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        h2 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 1. Single Open Shadow DOM -->
+<div class="card">
+    <h2>1. Single Shadow Host (Open)</h2>
+    <p>The input and button below live inside an open Shadow Root.</p>
+
+    <!-- Shadow Host Element -->
+    <div id="shadow-host-single"></div>
+</div>
+
+<!-- 2. Nested Shadow DOM -->
+<div class="card">
+    <h2>2. Nested Shadow DOM</h2>
+    <p>Parent shadow root contains a child host, which contains the target input.</p>
+
+    <!-- Outer Host Element -->
+    <div id="shadow-host-parent"></div>
+</div>
+
+<script>
+    // --- 1. Construct Single Shadow Root ---
+    const hostSingle = document.getElementById('shadow-host-single');
+    const shadowRootSingle = hostSingle.attachShadow({ mode: 'open' });
+
+    shadowRootSingle.innerHTML = `
+      <style>
+        .shadow-box {
+          border: 2px dashed #3b82f6;
+          padding: 16px;
+          border-radius: 6px;
+          background: #eff6ff;
+        }
+        input {
+          padding: 8px 12px;
+          border: 1px solid #93c5fd;
+          border-radius: 4px;
+          width: 80%;
+          margin-bottom: 10px;
+        }
+        button {
+          padding: 8px 16px;
+          background: #2563eb;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        #single-msg {
+          margin-top: 8px;
+          font-weight: bold;
+          color: #1d4ed8;
+        }
+      </style>
+      <div class="shadow-box">
+        <label for="single-input" style="display:block; margin-bottom:4px; font-weight:bold;">User Name:</label>
+        <input type="text" id="single-input" placeholder="Type inside shadow DOM...">
+        <br>
+        <button id="single-btn">Submit</button>
+        <div id="single-msg"></div>
+      </div>
+    `;
+
+    shadowRootSingle.getElementById('single-btn').addEventListener('click', () => {
+        const val = shadowRootSingle.getElementById('single-input').value;
+        shadowRootSingle.getElementById('single-msg').textContent = 'Saved: ' + val;
+    });
+
+
+    // --- 2. Construct Nested Shadow Root ---
+    const hostParent = document.getElementById('shadow-host-parent');
+    const parentShadowRoot = hostParent.attachShadow({ mode: 'open' });
+
+    parentShadowRoot.innerHTML = `
+      <style>
+        .parent-box {
+          border: 2px solid #10b981;
+          padding: 14px;
+          border-radius: 6px;
+          background: #ecfdf5;
+        }
+      </style>
+      <div class="parent-box">
+        <h4>Parent Shadow Container</h4>
+        <div id="nested-child-host"></div>
+      </div>
+    `;
+
+    // Attach second shadow root inside the first
+    const nestedChildHost = parentShadowRoot.getElementById('nested-child-host');
+    const childShadowRoot = nestedChildHost.attachShadow({ mode: 'open' });
+
+    childShadowRoot.innerHTML = `
+      <style>
+        .nested-box {
+          border: 2px dashed #059669;
+          padding: 12px;
+          border-radius: 4px;
+          background: #d1fae5;
+        }
+        input {
+          padding: 8px;
+          border: 1px solid #059669;
+          border-radius: 4px;
+          width: 80%;
+        }
+      </style>
+      <div class="nested-box">
+        <label style="display:block; margin-bottom:4px; font-weight:bold;">Nested Secret Key:</label>
+        <input type="text" id="nested-input" placeholder="Deeply nested inside two shadow roots...">
+      </div>
+    `;
+</script>
+
+</body>
+</html>

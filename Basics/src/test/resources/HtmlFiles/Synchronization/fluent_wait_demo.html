@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fluent Wait Demo</title>
+</head>
+<body>
+    <h2>Fluent Wait Demonstration</h2>
+    <div id="target-container">
+        <!-- Content injected dynamically -->
+    </div>
+
+    <script>
+        // Injects a confirmation banner after 3.5 seconds
+        setTimeout(() => {
+            const banner = document.createElement("div");
+            banner.id = "success-banner";
+            banner.innerText = "Order Placed Successfully!";
+            banner.style.color = "green";
+            banner.style.fontWeight = "bold";
+            document.getElementById("target-container").appendChild(banner);
+        }, 3500);
+    </script>
+</body>
+</html>

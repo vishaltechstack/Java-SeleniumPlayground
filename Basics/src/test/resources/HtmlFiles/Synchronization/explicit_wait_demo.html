@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Explicit Wait Demo</title>
+</head>
+<body>
+    <h2>Explicit Wait Demonstration</h2>
+
+    <!-- 1. Hidden to Visible -->
+    <div id="hidden-text" style="display:none;">Dynamic Secret Message</div>
+
+    <br>
+
+    <!-- 2. Disabled to Clickable -->
+    <button id="disabled-btn" disabled>Pay Now</button>
+
+    <br><br>
+
+    <!-- 3. Text Change -->
+    <span id="status-label">Status: Pending...</span>
+
+    <script>
+        // Reveal hidden text after 2 seconds
+        setTimeout(() => {
+            document.getElementById("hidden-text").style.display = "block";
+        }, 2000);
+
+        // Enable the button after 3 seconds
+        setTimeout(() => {
+            document.getElementById("disabled-btn").removeAttribute("disabled");
+        }, 3000);
+
+        // Update status text after 4 seconds
+        setTimeout(() => {
+            document.getElementById("status-label").innerText = "Status: Completed";
+        }, 4000);
+    </script>
+</body>
+</html>

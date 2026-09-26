@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>XPath by Surroundings Demo</title>
+</head>
+<body>
+    <div class="form-container">
+        <!-- Case 1: Target input has no unique ID/class, located via its preceding static label -->
+        <div class="field-group">
+            <label>Primary Phone Number</label>
+            <input type="text" placeholder="Enter phone">
+        </div>
+
+        <!-- Case 2: Target checkbox has no unique identifier, located via its surrounding parent card -->
+        <div class="user-card" id="card-john">
+            <h3>John Doe</h3>
+            <p>Role: Project Lead</p>
+            <label class="toggle-container">
+                <span>Enable Admin Access</span>
+                <input type="checkbox">
+            </label>
+        </div>
+
+        <!-- Case 3: Action button inside the same row relative to a specific table entry -->
+        <table border="1">
+            <tr>
+                <td>Payment Invoice #1094</td>
+                <td>$250.00</td>
+                <td><button>Download PDF</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store Checkout & Order Review</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --border: #cbd5e1;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #059669;
+      --primary-hover: #047857;
+      --danger: #dc2626;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 30px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+
+    th, td {
+      padding: 12px 8px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .product-row:hover {
+      background-color: #f8fafc;
+    }
+
+    .qty-input {
+      width: 55px;
+      padding: 6px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      color: var(--danger);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Option and Form Controls */
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .radio-label, .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .coupon-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .coupon-input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .btn-secondary {
+      padding: 8px 16px;
+      background-color: #334155;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .policy-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+
+    .policy-links a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .policy-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Section 1: Dynamic Table / Quantity Updates -->
+    <section class="card" id="cart-section">
+      <h2 id="cart-title">Your Shopping Cart</h2>
+      <table id="cart-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="product-row" data-sku="SKU-1001">
+            <td class="item-name">Mechanical Keyboard</td>
+            <td><input type="number" name="qty_keyboard" class="qty-input" value="1" min="1" max="5" /></td>
+            <td class="item-price">$89.00</td>
+            <td><button type="button" class="btn-remove" name="remove_keyboard">Remove</button></td>
+          </tr>
+          <tr class="product-row" data-sku="SKU-1002">
+            <td class="item-name">Wireless Mouse</td>
+            <td><input type="number" name="qty_mouse" class="qty-input" value="2" min="1" max="5" /></td>
+            <td class="item-price">$45.00</td>
+            <td><button type="button" class="btn-remove" name="remove_mouse">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Coupon Code Section -->
+      <div class="coupon-box">
+        <input type="text" id="promo-code" name="discount_code" class="coupon-input" placeholder="Enter coupon code" />
+        <button type="button" id="apply-coupon-btn" class="btn-secondary">Apply</button>
+      </div>
+    </section>
+
+    <!-- Section 2: Radios, Checkboxes, and Form Submission -->
+    <section class="card" id="checkout-section">
+      <h2>Shipping & Payment</h2>
+
+      <!-- Radio buttons: Same name attribute -->
+      <div class="option-group">
+        <label class="radio-label">
+          <input type="radio" name="shipping_method" value="standard" checked />
+          Standard Delivery (3-5 business days - Free)
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="shipping_method" value="express" />
+          Express Delivery (Next Day - $15.00)
+        </label>
+      </div>
+
+      <!-- Checkboxes -->
+      <div class="option-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="gift-opt" name="is_gift" />
+          This order is a gift (hide pricing on packing slip)
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="terms-agree" name="agree_terms" />
+          I accept the conditions
+        </label>
+      </div>
+
+      <button type="submit" id="checkout-btn" class="btn-primary">
+        Complete Purchase
+      </button>
+
+      <!-- Anchor tags for link text locator tests -->
+      <div class="policy-links">
+        <a href="#returns" class="nav-policy">View Return Policy</a>
+        <a href="#support" class="nav-policy">Contact Customer Support</a>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>

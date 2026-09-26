@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Working in Selenium | Interactive Automation Testing Hub</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="dark">
+
+  <!-- ===============================
+       TOP NAVIGATION BAR
+       =============================== -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <div class="brand">
+        <span class="brand-badge">&lt;/&gt;</span>
+        <span class="brand-text">Working in Selenium</span>
+      </div>
+      <span class="version-tag">v2.5 Practice Sandbox</span>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-btn" id="btn-toggle-console">Toggle Live DOM Console</button>
+      <button class="nav-btn btn-primary" id="btn-code-generator">View Code Snippets</button>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <!-- ===============================
+         MODULES SIDEBAR
+         =============================== -->
+    <aside class="sidebar" id="sandbox-sidebar">
+      <div class="sidebar-section-title">Core Modules</div>
+      <ul class="nav-menu">
+        <li class="menu-item active" data-target="module-elements">
+          <span class="menu-icon">▤</span> Web Elements & Locators
+        </li>
+        <li class="menu-item" data-target="module-selects">
+          <span class="menu-icon">▾</span> Selects & Auto-Suggest
+        </li>
+        <li class="menu-item" data-target="module-actions">
+          <span class="menu-icon">✦</span> Actions (Hover / Drag)
+        </li>
+        <li class="menu-item" data-target="module-frames">
+          <span class="menu-icon">◫</span> iFrames & Shadow DOM
+        </li>
+        <li class="menu-item" data-target="module-alerts">
+          <span class="menu-icon">⚠</span> Alerts & Window Handles
+        </li>
+        <li class="menu-item" data-target="module-waits">
+          <span class="menu-icon">⏳</span> Dynamic Waits & Loaders
+        </li>
+        <li class="menu-item" data-target="module-tables">
+          <span class="menu-icon">▦</span> WebTables & Pagination
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title" style="margin-top: 2rem;">Progress Tracker</div>
+      <div class="progress-box">
+        <div class="progress-label">
+          <span>Scenarios Tested</span>
+          <span id="tracker-counter">0 / 7</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="tracker-fill"></div></div>
+      </div>
+    </aside>
+
+    <!-- ===============================
+         MAIN INTERACTIVE VIEWPORT
+         =============================== -->
+    <main class="main-viewport">
+
+      <!-- MODULE 1: WEB ELEMENTS & LOCATORS -->
+      <section id="module-elements" class="module-card active">
+        <div class="module-header">
+          <h2>01. Web Elements, Relative Locators & Attributes</h2>
+          <p>Practice ID, Name, Class, XPath, Relative Locators (above, below, toRightOf), and input state verifications.</p>
+        </div>
+
+        <div class="sandbox-grid">
+          <div class="practice-box">
+            <h3>Standard Form Elements</h3>
+            <div class="input-row">
+              <label for="student-name">Full Name (Target for ID/Name):</label>
+              <input type="text" id="student-name" name="fullName" placeholder="e.g. John Doe" class="field-target" />
+            </div>
+
+            <div class="input-row">
+              <label for="student-email">Email Address:</label>
+              <input type="email" id="student-email" name="userEmail" placeholder="john@example.com" class="field-target" />
+            </div>
+
+            <div class="input-row">
+              <label>Account Status (Radio):</label>
+              <div class="radio-cluster">
+                <label><input type="radio" name="account_status" value="student" checked /> Student</label>
+                <label><input type="radio" name="account_status" value="pro" /> Pro User</label>
+                <label><input type="radio" name="account_status" value="corp" /> Enterprise</label>
+              </div>
+            </div>
+
+            <div class="input-row">
+              <label><input type="checkbox" id="terms-box" name="terms" /> I verify all test assertions</label>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-action" id="btn-submit-form">Submit Verification</button>
+              <button class="btn btn-muted" id="btn-disabled-test" disabled>Disabled State</button>
+            </div>
+            <div id="form-validation-msg" class="success-banner" style="display:none;">Data captured! WebElement is active.</div>
+          </div>
+
+          <div class="info-box">
+            <h4>Suggested Automation Targets:</h4>
+            <ul>
+              <li><code>By.id("student-name")</code></li>
+              <li><code>By.name("account_status")</code> with <code>getAttribute("checked")</code></li>
+              <li>Relative Locator: Target Email <code>below()</code> Name</li>
+              <li>Assert <code>isEnabled()</code> on disabled button returns <code>false</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 2: SELECTS & AUTO-SUGGESTION -->
+      <section id="module-selects" class="module-card">
+        <div class="module-header">
+          <h2>02. Dropdowns, Multi-Select & Auto-Suggestions</h2>
+          <p>Practice standard <code>Select</code> options, multi-select list boxes, and dynamic keystroke-triggered suggestion menus.</p>
+        </div>
+
+        <div class="sandbox-grid">
+          <div class="practice-box">
+            <div class="input-row">
+              <label for="dropdown-framework">Single Select (Framework):</label>
+              <select id="dropdown-framework" class="field-target">
+                <option value="">-- Choose Framework --</option>
+                <option value="sel-java">Selenium Java</option>
+                <option value="sel-py">Selenium Python</option>
+                <option value="pw-ts">Playwright TypeScript</option>
+                <option value="cyp-js">Cypress JavaScript</option>
+              </select>
+            </div>
+
+            <div class="input-row">
+              <label for="multi-tools">Multi-Select List (Tools):</label>
+              <select id="multi-tools" multiple size="4" class="field-target">
+                <option value="testng">TestNG</option>
+                <option value="junit">JUnit 5</option>
+                <option value="cucumber">Cucumber BDD</option>
+                <option value="allure">Allure Reporting</option>
+              </select>
+            </div>
+
+            <div class="input-row auto-suggest-container">
+              <label for="autosuggest-input">Auto-Suggestion Search:</label>
+              <input type="text" id="autosuggest-input" placeholder="Type 'auto' or 'test'..." autocomplete="off" />
+              <ul id="suggestion-dropdown" class="suggestion-list"></ul>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>Code Strategy:</h4>
+            <p>Use <code>org.openqa.selenium.support.ui.Select</code> for single/multi select. For the suggestion field, simulate keystrokes with <code>sendKeys()</code> and wait for <code>ul.suggestion-list li</code> to appear.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 3: ACTIONS CLASS -->
+      <section id="module-actions" class="module-card">
+        <div class="module-header">
+          <h2>03. Actions Class (Hover, Double-Click, Drag & Drop)</h2>
+          <p>Execute advanced mouse and keyboard actions like moveToElement, doubleClick, contextClick (right click), and dragAndDrop.</p>
+        </div>
+
+        <div class="sandbox-grid">
+          <div class="practice-box">
+            <div class="actions-playground">
+              <!-- Hover Menu -->
+              <div class="hover-box" id="hover-zone">
+                <button class="btn btn-secondary">Hover Over Me</button>
+                <div class="hover-menu-popup" id="hover-child-menu">
+                  <a href="#link1" id="hover-opt-1">Direct Download</a>
+                  <a href="#link2" id="hover-opt-2">API Documentation</a>
+                </div>
+              </div>
+
+              <!-- Double Click -->
+              <button class="btn btn-action" id="btn-double-target">Double Click Target</button>
+              <span id="double-click-state" class="state-text">Pending action...</span>
+
+              <!-- Drag & Drop -->
+              <div class="drag-zone">
+                <div id="drag-source" draggable="true" class="drag-item">Drag Box</div>
+                <div id="drop-target" class="drop-target-area">Drop Target Area</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>Selenium Recipe:</h4>
+            <code>Actions act = new Actions(driver);<br>act.dragAndDrop(src, target).perform();</code>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 4: IFRAMES & SHADOW DOM -->
+      <section id="module-frames" class="module-card">
+        <div class="module-header">
+          <h2>04. Handling iFrames & Traversing Shadow DOM</h2>
+          <p>Demonstrate frame switching (<code>switchTo().frame()</code>) and modern Chromium Shadow DOM access (<code>getShadowRoot()</code>).</p>
+        </div>
+
+        <div class="sandbox-grid">
+          <div class="practice-box">
+            <!-- Inline Frame -->
+            <label>Nested iFrame Element:</label>
+            <iframe id="iframe-practice" class="iframe-container" srcdoc="
+              <!DOCTYPE html>
+              <html>
+              <head><style>body{background:#0d1117; color:#58a6ff; font-family:sans-serif; padding:15px;}</style></head>
+              <body>
+                <h4>Inside Practice iFrame Container</h4>
+                <input type='text' id='iframe-input' placeholder='Target inside frame' style='padding:6px;'/>
+                <button id='iframe-btn' onclick='document.getElementById(&quot;out&quot;).innerText=&quot;Button clicked inside frame!&quot;' style='padding:6px;'>Click Me</button>
+                <p id='out' style='color:#7ee787; font-size:12px;'></p>
+              </body>
+              </html>
+            "></iframe>
+
+            <!-- Shadow DOM Host -->
+            <label style="margin-top: 15px;">Shadow DOM Host (Open Mode):</label>
+            <div id="shadow-host-root"></div>
+          </div>
+
+          <div class="info-box">
+            <h4>Key Automation Instructions:</h4>
+            <ul>
+              <li>Switch to Frame: <code>driver.switchTo().frame("iframe-practice");</code></li>
+              <li>Return to Default: <code>driver.switchTo().defaultContent();</code></li>
+              <li>Shadow Root: <code>driver.findElement(By.id("shadow-host-root")).getShadowRoot().findElement(...)</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 5: ALERTS & WINDOWS -->
+      <section id="module-alerts" class="module-card">
+        <div class="module-header">
+          <h2>05. JavaScript Alerts, Prompts & Multiple Windows</h2>
+          <p>Handle native browser alert pop-ups (<code>Alert</code> interface) and manage switching between new tabs and windows (<code>getWindowHandles</code>).</p>
+        </div>
+
+        <div class="sandbox-grid">
+          <div class="practice-box">
+            <label>Native JavaScript Alerts:</label>
+            <div class="button-row">
+              <button class="btn btn-secondary" id="btn-native-alert">Trigger Alert</button>
+              <button class="btn btn-secondary" id="btn-native-confirm">Trigger Confirm</button>
+              <button class="btn btn-secondary" id="btn-native-prompt">Trigger Prompt</button>
+            </div>
+            <div id="alert-return-text" class="state-text" style="margin-top:10px;">Alert result will appear here.</div>
+
+            <hr style="border-color: var(--border-dark); margin: 20px 0;" />
+
+            <label>Multi-Tab & Window Handles:</label>
+            <div class="button-row">
+              <button class="btn btn-action" id="btn-open-new-window">Open Child Window</button>
+              <a href="https://www.selenium.dev" target="_blank" class="btn btn-secondary" id="link-external-tab">Open Tab (External)</a>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>Alert Syntax:</h4>
+            <code>Alert alert = driver.switchTo().alert();<br>alert.accept(); // or alert.dismiss();</code>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 6: WAITS & SYNCHRONIZATION -->
+      <section id="module-waits" class="module-card">
+        <div class="module-header">
+          <h2>06. Synchronization, Explicit Waits & Loaders</h2>
+          <p>Practice <code>WebDriverWait</code> with <code>ExpectedConditions.visibilityOfElementLocated</code> and polling intervals.</p>
+        </div>
+
+        <div class="sandbox-grid">
+          <div class="practice-box">
+            <button class="btn btn-primary" id="btn-start-async">Trigger Async Content (4s Delay)</button>
+            <div id="loader-spinner" class="spinner" style="display:none;"></div>
+            <div id="async-content-target" class="async-box" style="display:none;">
+              <h4>✔ Async Payload Received</h4>
+              <p>Selenium Token Generated: <code>#TOKEN-SEL-9904</code></p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>Wait Condition Target:</h4>
+            <p>Wait until <code>#async-content-target</code> is displayed before asserting text contents.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 7: WEBTABLES & PAGINATION -->
+      <section id="module-tables" class="module-card">
+        <div class="module-header">
+          <h2>07. WebTables, Dynamic Rows & Data Verification</h2>
+          <p>Extract table cells using XPath axes: <code>//td[text()='...']/preceding-sibling::td</code> or iterate through headers and rows.</p>
+        </div>
+
+        <div class="sandbox-grid">
+          <div class="practice-box" style="grid-column: 1 / -1;">
+            <table class="custom-table" id="practice-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="check-all-table" /></th>
+                  <th>ID</th>
+                  <th>Engineer</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                <tr>
+                  <td><input type="checkbox" class="row-chk" /></td>
+                  <td>#001</td>
+                  <td>Alex Rivera</td>
+                  <td>SDET Lead</td>
+                  <td><span class="badge badge-active">Active</span></td>
+                  <td><button class="btn-sm btn-delete">Delete</button></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="row-chk" /></td>
+                  <td>#002</td>
+                  <td>Sophia Chen</td>
+                  <td>QA Automation</td>
+                  <td><span class="badge badge-pending">Pending</span></td>
+                  <td><button class="btn-sm btn-delete">Delete</button></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" class="row-chk" /></td>
+                  <td>#003</td>
+                  <td>Marcus Brody</td>
+                  <td>DevOps Test Ops</td>
+                  <td><span class="badge badge-active">Active</span></td>
+                  <td><button class="btn-sm btn-delete">Delete</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===============================
+         INNOVATIVE COMPONENT: LIVE DOM LOG CONSOLE
+         =============================== -->
+    <aside class="live-console" id="live-console">
+      <div class="console-header">
+        <span>⚡ Live Automation Event Logger</span>
+        <button id="btn-clear-console" class="btn-tiny">Clear</button>
+      </div>
+      <div class="console-body" id="console-logs">
+        <div class="log-entry info">[System] Playground ready. Inspect elements or interact to see live events.</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ===============================
+       INNOVATIVE COMPONENT: CODE SNIPPET DRAWER
+       =============================== -->
+  <div class="drawer-backdrop" id="code-drawer-backdrop"></div>
+  <div class="code-drawer" id="code-drawer">
+    <div class="drawer-header">
+      <h3>Ready-to-Use Automation Snippets</h3>
+      <button class="btn-tiny" id="btn-close-drawer">Close ✕</button>
+    </div>
+    <div class="drawer-tabs">
+      <button class="tab-btn active" data-lang="java">Java (TestNG)</button>
+      <button class="tab-btn" data-lang="python">Python (pytest)</button>
+    </div>
+    <pre class="code-snippet-box"><code id="code-display"></code></pre>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

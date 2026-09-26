@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form action="#" method="POST">
+    <!-- First Name -->
+    <label for="firstName">First Name:</label><br>
+    <input type="text" id="firstName" name="firstName" required><br><br>
+
+    <!-- Last Name -->
+    <label for="lastName">Last Name:</label><br>
+    <input type="text" id="lastName" name="lastName" required><br><br>
+
+    <!-- Email -->
+    <label for="email">Email Address:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <!-- Phone (Numbers Only) -->
+    <label for="phone">Phone Number:</label><br>
+    <input
+            type="tel"
+            id="phone"
+            name="phone"
+            pattern="[0-9]+"
+            inputmode="numeric"
+            placeholder="1234567890"
+            title="Please enter numbers only"
+            oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+            required><br><br>
+
+    <!-- Date of Birth (DOB) -->
+    <label for="dob">Date of Birth:</label><br>
+    <input type="date" id="dob" name="dob" required><br><br>
+
+    <!-- Gender -->
+    <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male" required>
+    <label for="male">Male</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><br>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">Other</label><br><br>
+
+    <!-- Country -->
+    <label for="country">Country:</label><br>
+    <select id="country" name="country" required>
+        <option value="">--Select Country--</option>
+        <option value="usa">United States</option>
+        <option value="canada">Canada</option>
+        <option value="uk">United Kingdom</option>
+        <option value="india">India</option>
+        <option value="australia">Australia</option>
+    </select><br><br>
+
+    <!-- Password -->
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <!-- Confirm Password -->
+    <label for="confirmPassword">Confirm Password:</label><br>
+    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+
+    <!-- Terms and Conditions Checkbox -->
+    <input type="checkbox" id="terms" name="terms" required>
+    <label for="terms">I agree to the Terms and Conditions</label><br><br>
+
+    <!-- Submit and Cancel Buttons -->
+    <button type="submit">Submit</button>
+    <button type="reset">Cancel</button>
+</form>
+
+</body>
+</html>

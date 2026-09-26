@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EduTech Automation Portal | Contact & Windows</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="brand-logo">EduTech Portal</a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Basic Locators</a></li>
+        <li><a href="services.html">Dropdown & Actions</a></li>
+        <li><a href="about.html">Frames & Shadow</a></li>
+        <li><a href="contact.html" class="active">Alert & Multi-Window</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Waits, Alerts & Multi-Window Operations</h1>
+    <p class="subtitle">Practice Explicit/Fluent waits, JavaScript Alerts vs HTML Modals, and Window Switching.</p>
+
+    <div class="grid-layout">
+      <!-- Synchronization / Waits Section -->
+      <section class="card" id="sync-testing-section">
+        <h2>1. Synchronization & Dynamic Loading</h2>
+        <p style="font-size: 0.85rem; color: var(--muted);">Click the button to trigger a network mock with a 4-second delay.</p>
+
+        <button type="button" id="btn-sync-trigger" class="btn btn-primary">Generate Support Ticket</button>
+
+        <div id="delayed-response-box" style="display: none; margin-top: 15px;">
+          <!-- Loaded via JavaScript after 4 seconds -->
+        </div>
+      </section>
+
+      <!-- JavaScript Native Alerts & Confirmation -->
+      <section class="card" id="alerts-testing-section">
+        <h2>2. Browser Alerts & Dialogs</h2>
+        <p style="font-size: 0.85rem; color: var(--muted);">Interact using <code>driver.switchTo().alert()</code></p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="btn btn-secondary" id="btn-js-alert" onclick="alert('Standard Alert: Ticket logged successfully!');">
+            Trigger JS Alert
+          </button>
+
+          <button class="btn btn-secondary" id="btn-js-confirm" onclick="const res = confirm('Delete current draft?'); document.getElementById('dialog-output').innerText = 'Confirmed: ' + res;">
+            Trigger JS Confirm
+          </button>
+
+          <button class="btn btn-secondary" id="btn-js-prompt" onclick="const val = prompt('Please enter verification code:'); document.getElementById('dialog-output').innerText = 'Entered: ' + val;">
+            Trigger JS Prompt
+          </button>
+        </div>
+
+        <p id="dialog-output" style="font-size: 0.85rem; font-weight: 600; margin-top: 10px; color: var(--primary);"></p>
+      </section>
+
+      <!-- Custom HTML Overlay Modal -->
+      <section class="card" id="modal-testing-section">
+        <h2>3. HTML Custom Overlay Modal</h2>
+        <p style="font-size: 0.85rem; color: var(--muted);">Unlike JS alerts, these require standard locator targeting.</p>
+        <button type="button" class="btn btn-secondary" id="btn-open-modal">Open Terms Modal</button>
+      </section>
+
+      <!-- Window / Tab Handling -->
+      <section class="card" id="windows-testing-section">
+        <h2>4. Handling Windows & Tabs</h2>
+        <p style="font-size: 0.85rem; color: var(--muted);">Clicking these triggers new window handles to switch between.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <!-- New Tab Link -->
+          <a href="https://www.selenium.dev" target="_blank" id="link-blank-tab" class="btn btn-primary">
+            Open Selenium Documentation (New Tab)
+          </a>
+
+          <!-- Pop-up Window Trigger -->
+          <button class="btn btn-secondary" id="btn-open-popup-window" onclick="window.open('about.html', 'SubWindow', 'width=500,height=500');">
+            Open Dedicated Pop-up Window
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal Component (Hidden by default) -->
+  <div id="custom-modal-backdrop" class="modal-backdrop" style="display: none;">
+    <div class="modal-content">
+      <h3>Terms & Privacy Conditions</h3>
+      <p style="margin: 12px 0; font-size: 0.85rem; color: var(--muted);">
+        You are agreeing to complete mock automation checks against this practice site.
+      </p>
+      <button type="button" class="btn btn-danger" id="btn-close-modal">I Understand (Close)</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>Selenium Automation Practice Sandbox © 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

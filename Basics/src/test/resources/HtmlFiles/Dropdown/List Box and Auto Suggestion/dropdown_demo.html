@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropdown Practice Ground for Selenium</title>
+    <style>
+        * { box-sizing: border-box; font-family: sans-serif; }
+        body { padding: 30px; background-color: #f4f6f8; }
+        h1 { margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .card h3 { margin-top: 0; margin-bottom: 12px; font-size: 16px; color: #333; }
+        label { display: block; font-size: 13px; margin-bottom: 6px; color: #555; }
+
+        /* Native Form Controls */
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+        select:focus, input[type="text"]:focus { border-color: #0066cc; }
+
+        /* Custom Dropdown (Div-based) */
+        .custom-dropdown { position: relative; width: 100%; }
+        .custom-btn {
+            width: 100%;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .custom-menu {
+            display: none;
+            position: absolute;
+            top: 105%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            list-style: none;
+            margin: 0;
+            padding: 4px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .custom-menu.open { display: block; }
+        .custom-menu li {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .custom-menu li:hover { background-color: #f0f4f8; }
+
+        /* Split Action Button */
+        .split-btn-group { display: flex; position: relative; width: 100%; }
+        .split-main {
+            flex: 1;
+            padding: 10px;
+            background: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            cursor: pointer;
+        }
+        .split-toggle {
+            padding: 10px 14px;
+            background: #0052a3;
+            color: #fff;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Dropdown Practice Suite</h1>
+<div class="grid">
+
+    <!-- 1. Standard Single Select -->
+    <div class="card">
+        <h3>1. Standard Native Select</h3>
+        <label for="country-select">Choose a country:</label>
+        <select id="country-select">
+            <option value="">-- Select Country --</option>
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="in">India</option>
+        </select>
+    </div>
+
+    <!-- 2. Multi-Select Listbox -->
+    <div class="card">
+        <h3>2. Native Multi-Select</h3>
+        <label for="skills-select">Hold Ctrl/Cmd to select multiples:</label>
+        <select id="skills-select" multiple size="4">
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="selenium">Selenium</option>
+            <option value="sql">SQL</option>
+        </select>
+    </div>
+
+    <!-- 3. Searchable Autocomplete (Datalist) -->
+    <div class="card">
+        <h3>3. Autocomplete / Combobox (Datalist)</h3>
+        <label for="browser-input">Type to search a browser:</label>
+        <input list="browsers" id="browser-input" placeholder="Type here...">
+        <datalist id="browsers">
+            <option value="Google Chrome">
+            <option value="Mozilla Firefox">
+            <option value="Microsoft Edge">
+            <option value="Safari">
+            <option value="Brave">
+        </datalist>
+    </div>
+
+    <!-- 4. Custom Div/Li Dropdown -->
+    <div class="card">
+        <h3>4. Custom UI Dropdown (div / li)</h3>
+        <label>Framework choice:</label>
+        <div class="custom-dropdown">
+            <button type="button" id="custom-toggle" class="custom-btn" onclick="toggleCustomMenu()">Select a framework</button>
+            <ul id="custom-menu" class="custom-menu">
+                <li onclick="selectCustom('React')">React</li>
+                <li onclick="selectCustom('Vue.js')">Vue.js</li>
+                <li onclick="selectCustom('Angular')">Angular</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 5. Split Action Dropdown -->
+    <div class="card">
+        <h3>5. Split / Action Button</h3>
+        <label>Save status:</label>
+        <div class="split-btn-group">
+            <button type="button" id="split-primary-btn" class="split-main" onclick="alert('Primary Save Clicked')">Save Document</button>
+            <button type="button" id="split-toggle-btn" class="split-toggle" onclick="toggleSplitMenu()">▼</button>
+            <ul id="split-menu" class="custom-menu" style="top: 100%;">
+                <li onclick="alert('Draft Saved')">Save as Draft</li>
+                <li onclick="alert('Exported as PDF')">Save & Export PDF</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 6. Cascading / Dependent Dropdowns -->
+    <div class="card">
+        <h3>6. Cascading Dropdown</h3>
+        <label for="cascade-state">Select State:</label>
+        <select id="cascade-state" onchange="updateCities()">
+            <option value="">-- Select State --</option>
+            <option value="ca">California</option>
+            <option value="tx">Texas</option>
+        </select>
+
+        <label for="cascade-city" style="margin-top: 12px;">Select City:</label>
+        <select id="cascade-city" disabled>
+            <option value="">-- Select State First --</option>
+        </select>
+    </div>
+
+</div>
+
+<script>
+    // Custom Dropdown Handlers
+    function toggleCustomMenu() {
+        document.getElementById('custom-menu').classList.toggle('open');
+    }
+    function selectCustom(val) {
+        document.getElementById('custom-toggle').innerText = val;
+        document.getElementById('custom-menu').classList.remove('open');
+    }
+
+    // Split Button Handlers
+    function toggleSplitMenu() {
+        document.getElementById('split-menu').classList.toggle('open');
+    }
+
+    // Cascading Dropdown Logic
+    const cities = {
+        ca: ['Los Angeles', 'San Francisco', 'San Diego'],
+        tx: ['Houston', 'Austin', 'Dallas']
+    };
+
+    function updateCities() {
+        const stateSelect = document.getElementById('cascade-state');
+        const citySelect = document.getElementById('cascade-city');
+        const selected = stateSelect.value;
+
+        citySelect.innerHTML = '<option value="">-- Select City --</option>';
+
+        if (selected && cities[selected]) {
+            citySelect.disabled = false;
+            cities[selected].forEach(city => {
+                const opt = document.createElement('option');
+                opt.value = city.toLowerCase().replace(/\s+/g, '-');
+                opt.textContent = city;
+                citySelect.appendChild(opt);
+            });
+        } else {
+            citySelect.disabled = true;
+        }
+    }
+</script>
+</body>
+</html>

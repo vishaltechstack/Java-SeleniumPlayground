@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EduTech Automation Portal | Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Global Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand-logo" id="header-brand">EduTech Portal</a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html" class="active" id="nav-home">Basic Locators</a></li>
+        <li><a href="services.html" id="nav-courses">Dropdown & Actions</a></li>
+        <li><a href="about.html" id="nav-about">Frames & Shadow</a></li>
+        <li><a href="contact.html" id="nav-contact">Alert & Multi-Window</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Student Portal Authentication</h1>
+    <p class="subtitle">Use this page to practice Basic/Relative Locators, SearchContext nesting, and Screenshot captures.</p>
+
+    <div class="grid-layout">
+      <!-- SearchContext & Relative Locators Form -->
+      <section class="card" id="login-context-root">
+        <h2>Student Login Form</h2>
+        <form id="student-login-form" onsubmit="event.preventDefault();">
+
+          <div class="form-group">
+            <label for="student-email" id="lbl-email">Student Email</label>
+            <input type="email" id="student-email" name="user_email" class="form-control" placeholder="user@domain.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="student-password" id="lbl-password">Password</label>
+            <input type="password" id="student-password" name="user_password" class="form-control" placeholder="••••••••" />
+          </div>
+
+          <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px;">
+            <input type="checkbox" id="chk-remember" name="remember_me" />
+            <label for="chk-remember" style="font-weight: 400;">Keep me signed in</label>
+          </div>
+
+          <div class="form-group" style="flex-direction: row; gap: 10px;">
+            <button type="submit" id="btn-login" class="btn btn-primary">Sign In</button>
+            <button type="button" id="btn-reset" class="btn btn-secondary">Reset Fields</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- WebElement Interface States Form -->
+      <section class="card" id="webelement-testing-card">
+        <h2>WebElement States & Visual Target</h2>
+        <p style="font-size: 0.85rem; color: var(--muted);">Practice <code>isEnabled()</code>, <code>isSelected()</code>, and Element Screenshot captures on the widget below.</p>
+
+        <div class="form-group">
+          <label>Enrollment Status (Disabled Field)</label>
+          <input type="text" id="disabled-reg-code" value="LOCKED-CODE-8902" disabled />
+        </div>
+
+        <div class="form-group">
+          <label>Subscription Tier</label>
+          <div style="display: flex; gap: 15px;">
+            <label><input type="radio" name="plan" value="free" checked /> Free</label>
+            <label><input type="radio" name="plan" value="pro" /> Pro</label>
+          </div>
+        </div>
+
+        <!-- TakesScreenshot & JavascriptExecutor Highlighting Target -->
+        <div id="badge-screenshot-target" style="padding: 15px; border: 2px solid #06b6d4; border-radius: 6px; text-align: center; background: #ecfeff;">
+          <h4 style="color: #0891b2;">Verified Partner Program</h4>
+          <span style="font-size: 0.8rem; color: #164e63;">Target for Element Screenshot & JS scrollIntoView</span>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Selenium Automation Practice Sandbox © 2026. Designed for WebDriver testing.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

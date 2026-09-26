@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebElement Actions Demo</title>
+</head>
+<body>
+    <h2>User Registration Form</h2>
+
+    <form id="registration-form" action="/submit" method="post" onsubmit="event.preventDefault(); alert('Form submitted!');">
+        <!-- sendKeys() & clear() target -->
+        <label for="email-input">Email Address:</label><br>
+        <input type="text" id="email-input" name="email" value="default_placeholder@example.com"><br><br>
+
+        <!-- click() targets -->
+        <label for="newsletter-checkbox">Subscribe to newsletter:</label>
+        <input type="checkbox" id="newsletter-checkbox" name="newsletter"><br><br>
+
+        <button type="button" id="btn-clickable" onclick="alert('Regular button clicked!');">
+            Click Me (Custom Action)
+        </button><br><br>
+
+        <!-- submit() target or form trigger -->
+        <button type="submit" id="btn-submit">Submit Registration</button>
+    </form>
+</body>
+</html>

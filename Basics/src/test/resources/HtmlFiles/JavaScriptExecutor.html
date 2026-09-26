@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScriptExecutor Practice Ground</title>
+    <style>
+        * { box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { margin: 0; padding: 24px; background: #eef2f7; }
+        .card { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); max-width: 650px; }
+        h2 { margin-top: 0; font-size: 18px; color: #333; }
+
+        /* Overlay Scenario */
+        .overlay-parent { position: relative; height: 110px; border: 1px dashed #bbb; border-radius: 4px; padding: 12px; }
+        .blocking-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 0, 0, 0.25); display: flex; align-items: center;
+            justify-content: center; font-weight: bold; color: #900; z-index: 10;
+        }
+
+        /* Disabled & Readonly */
+        input[type="text"], input[type="date"] {
+            width: 100%; padding: 10px; margin-top: 6px; margin-bottom: 12px;
+            border: 1px solid #ccc; border-radius: 4px; outline: none;
+        }
+
+        button {
+            padding: 10px 16px; border: none; border-radius: 4px;
+            background: #0066cc; color: white; cursor: pointer; font-size: 14px;
+        }
+
+        /* Spacer to create a long page for scrolling practice */
+        .scroll-spacer {
+            height: 1200px;
+            background: linear-gradient(180deg, #dce4ec 0%, #f4f6f9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 1. Intercepted Click (Bypass overlay) -->
+<div class="card">
+    <h2>1. Click Intercepted (Hidden / Obscured Button)</h2>
+    <p>A transparent overlay blocks standard Selenium clicks (`ElementClickInterceptedException`).</p>
+    <div class="overlay-parent">
+        <div class="blocking-overlay">Glass Layer (Blocks standard click)</div>
+        <button id="blocked-btn" onclick="alert('JS Click Succeeded!')">Target Button</button>
+    </div>
+</div>
+
+<!-- 2. Manipulating Disabled / Readonly Fields -->
+<div class="card">
+    <h2>2. Disabled and Read-Only Inputs</h2>
+    <label for="disabled-input">Disabled field (standard .sendKeys() fails):</label>
+    <input type="text" id="disabled-input" value="Locked Value" disabled>
+
+    <label for="readonly-date">Read-only Datepicker:</label>
+    <input type="date" id="readonly-date" readonly value="2026-09-13">
+
+    <button type="button" onclick="alert('Date is: ' + document.getElementById('readonly-date').value)">Check Date</button>
+</div>
+
+<!-- 3. Hidden Elements (DOM Extraction) -->
+<div class="card">
+    <h2>3. Hidden Data in DOM</h2>
+    <p>Standard `.getText()` returns an empty string for hidden text.</p>
+    <span id="hidden-secret" style="display: none;">ACCESS_TOKEN_XYZ_2026</span>
+    <button onclick="document.getElementById('hidden-secret').style.display='inline'">Make Visible via UI</button>
+</div>
+
+<!-- 4. Scroll Spacer -->
+<div class="scroll-spacer">
+    Scroll down to locate the footer target button ↓ (1200px offset)
+</div>
+
+<!-- 5. Scroll Target -->
+<div class="card" id="scroll-target-card">
+    <h2>5. Off-Screen Target (Scroll Practice)</h2>
+    <p>Use JavaScript to scroll directly to this element or to the bottom of the page.</p>
+    <button id="deep-btn" onclick="this.innerText = 'Clicked Successfully!'">I am at the bottom</button>
+</div>
+
+</body>
+</html>

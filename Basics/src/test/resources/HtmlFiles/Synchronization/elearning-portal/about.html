@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EduTech Automation Portal | About Us</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="brand-logo">EduTech Portal</a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Basic Locators</a></li>
+        <li><a href="services.html">Dropdown & Actions</a></li>
+        <li><a href="about.html" class="active">Frames & Shadow</a></li>
+        <li><a href="contact.html">Alert & Multi-Window</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Architecture, Frames & Shadow Roots</h1>
+    <p class="subtitle">Practice context-switching with iFrames and tree-traversal with the Shadow DOM.</p>
+
+    <div class="grid-layout">
+      <!-- iFrames Sandbox -->
+      <section class="card" id="iframe-testing-card">
+        <h2>Inline Frame (iFrame) Sandbox</h2>
+        <p style="font-size: 0.85rem; color: var(--muted);">Switch to this iframe using ID, Index, or WebElement.</p>
+
+        <!-- Using srcdoc to embed a complete nested DOM without needing an external file -->
+        <iframe
+          id="partner-frame"
+          name="partner_iframe"
+          style="width: 100%; height: 260px; border: 1px solid var(--border); border-radius: 6px;"
+          srcdoc='
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <style>
+                body { font-family: sans-serif; padding: 15px; background: #faf5ff; color: #581c87; }
+                button { background: #9333ea; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+              </style>
+            </head>
+            <body>
+              <h3>Inside iFrame Container</h3>
+              <p id="iframe-para">This text resides inside frame: partner_iframe</p>
+              <input type="text" id="iframe-input-token" placeholder="Type inside frame..." style="padding:6px; margin-bottom:10px;"/>
+              <br/>
+              <button id="iframe-action-btn" onclick="document.getElementById(&apos;status&apos;).innerText = &apos;Triggered!&apos;;">Action inside Frame</button>
+              <p id="status" style="font-size:0.8rem; font-weight:bold;"></p>
+            </body>
+            </html>
+          '>
+        </iframe>
+      </section>
+
+      <!-- Shadow DOM Sandbox -->
+      <section class="card" id="shadow-dom-testing-card">
+        <h2>Shadow DOM Traversal</h2>
+        <p style="font-size: 0.85rem; color: var(--muted);">
+          Standard <code>driver.findElement()</code> fails on elements inside Shadow Roots.
+          Use <code>WebElement.getShadowRoot()</code> to target the nested input.
+        </p>
+
+        <!-- Host Element for Shadow DOM -->
+        <div id="open-shadow-host"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Selenium Automation Practice Sandbox © 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

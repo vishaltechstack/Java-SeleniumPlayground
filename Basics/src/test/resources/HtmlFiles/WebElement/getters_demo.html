@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebElement Getters Demo</title>
+    <style>
+        .cta-button {
+            background-color: rgb(0, 123, 255);
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            font-weight: bold;
+            width: 160px;
+            height: 45px;
+            border: 2px solid rgb(0, 86, 179);
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 50px;
+        }
+        .info-card {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-card">
+        <h2 id="header-title" data-category="analytics">User Dashboard Overview</h2>
+
+        <!-- Target button with explicit dimensions, styling, and custom attributes -->
+        <button id="submit-btn"
+                class="cta-button"
+                name="actionButton"
+                data-testid="primary-cta"
+                title="Click to process data">
+            Process Data
+        </button>
+    </div>
+</body>
+</html>

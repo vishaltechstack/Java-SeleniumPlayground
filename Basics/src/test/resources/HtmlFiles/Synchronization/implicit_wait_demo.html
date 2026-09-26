@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Implicit Wait Demo</title>
+</head>
+<body>
+    <h2>Dynamic Content Demo</h2>
+    <div id="container">
+        <!-- Element inserted dynamically via JavaScript -->
+    </div>
+
+    <script>
+        setTimeout(function() {
+            var btn = document.createElement("button");
+            btn.id = "dynamic-btn";
+            btn.innerText = "Dynamically Added Button";
+            document.getElementById("container").appendChild(btn);
+        }, 2000); // Appears after 2 seconds
+    </script>
+</body>
+</html>

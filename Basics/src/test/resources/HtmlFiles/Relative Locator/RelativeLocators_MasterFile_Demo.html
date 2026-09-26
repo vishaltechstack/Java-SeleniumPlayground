@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Relative Locators Demo</title>
+    <style>
+        .container { width: 400px; margin: 30px auto; font-family: sans-serif; }
+        .row { display: flex; align-items: center; margin: 12px 0; gap: 10px; }
+        .grid-row { display: flex; gap: 20px; margin: 15px 0; }
+        input[type="text"], input[type="password"] { padding: 6px; width: 180px; }
+        button { padding: 6px 12px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Relative Locators Practice</h2>
+
+        <!-- Form elements stacked vertically -->
+        <div class="field-group">
+            <label id="lbl-username" for="username">Username:</label>
+            <input type="text" id="username" placeholder="Username input"><br><br>
+
+            <label id="lbl-password" for="password">Password:</label>
+            <input type="password" id="password" placeholder="Password input">
+        </div>
+
+        <br>
+
+        <!-- Horizontal elements for left/right demo -->
+        <div class="grid-row">
+            <button id="btn-cancel" class="action-btn">Cancel</button>
+            <button id="btn-submit" class="action-btn">Submit</button>
+        </div>
+
+        <br>
+
+        <!-- Nearby elements -->
+        <div class="row">
+            <input type="checkbox" id="terms-chk">
+            <span id="terms-text">I accept the Terms & Conditions</span>
+        </div>
+    </div>
+</body>
+</html>
